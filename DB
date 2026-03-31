@@ -1,0 +1,71 @@
+Database
+
+CREATE DATABASE banksystem;
+USE banksystem;
+
+Create Tables
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT,
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE bank (
+    pin VARCHAR(10),
+    type VARCHAR(20) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (pin) REFERENCES login(pin)
+);
+
+CREATE TABLE login (
+    form_no VARCHAR(30),
+    card_no INT PRIMARY KEY,
+    pin VARCHAR(30),
+    FOREIGN KEY (form_no) REFERENCES signup(form_no)
+);
+
+CREATE TABLE signup (
+    form_no VARCHAR(30) PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    gender VARCHAR(30),
+    email VARCHAR(60),
+    address VARCHAR(100),
+    city VARCHAR(30),
+    pincode INT,
+    state VARCHAR(50),
+    category VARCHAR(30),
+    income INT,
+    occupation VARCHAR(80),
+    pan VARCHAR(30),
+    aadhar BIGINT,
+    seniorcitizen VARCHAR(5),
+    existing_account VARCHAR(5)
+);
+
+CREATE TABLE signuptwo (
+    form_no VARCHAR(30),
+    account_type VARCHAR(30) NOT NULL,
+    card_number INT PRIMARY KEY,
+    pin VARCHAR(30) NOT NULL,
+    facility VARCHAR(30),
+    FOREIGN KEY (form_no) REFERENCES signup(form_no)
+);
+
+Insert Sample Data
+
+INSERT INTO admin (username, password) VALUES ('admin', 'admin');
+
+INSERT INTO signup (form_no, name, last_name, gender, email, address, city, pincode, state, category, income, occupation, pan, aadhar, seniorcitizen, existing_account)
+VALUES ('F001', 'abc', 'xyz', 'Male', 'abc@email.com', 'Kalyan', 'Mumbai', 421301, 'Maharashtra', 'General', 500000, 'Developer', 'ABCDE1234F', 123456789012, 'No', 'No');
+
+INSERT INTO signuptwo (form_no, account_type, card_number, pin, facility)
+VALUES ('F001', 'Savings', 12345678, '1234', 'ATM, NetBanking');
+
+INSERT INTO login (form_no, card_no, pin)
+VALUES ('F001', 12345678, '123');
+
+INSERT INTO bank (pin, type, amount)
+VALUES ('1234', 'Deposit', 10000.00);
+
